@@ -1,0 +1,1 @@
+﻿dotnet ef dbcontext scaffold "Data Source=burns-azure-sql02.database.windows.net,1433;Database=PRW_DEV;User ID=burnssqladmindev;Password=Burn$@dm!ndev;Trusted_Connection=False;Encrypt=True;" Microsoft.EntityFrameworkCore.SqlServer --schema app --context-dir Data --output-dir Models --force

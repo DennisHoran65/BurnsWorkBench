@@ -1,0 +1,11 @@
+<div  (window:resize)="onWindowResize($event)"  style="margin-top: 96px; width:90%;" >
+    <div id="reportDiv" style=" width: 100%; text-align: center;" [ngStyle]="reportDisplayStyle()"  #embeddedReport>
+       
+    </div> 
+
+ <div style="margin-top:40px; width:100%; text-align: center;">
+    <img *ngIf="(loading && !errorMessage)" src="../../assets/images/loading.gif" />
+    <div *ngIf="(errorMessage)" style="margin-top:40px; padding: 40px;">{{errorMessage}}</div>
+</div>
+
+</div>

@@ -1,0 +1,57 @@
+<div class="modal-header" style="border:none;">
+  <div class="rowHeader">
+  <div class="col-xs-12">
+      <h4>Project Start Date Change Detected</h4>
+  </div>
+</div>
+ 
+</div>
+<div class="modal-body">
+  <div class="rowHeader">
+    <div class="col-xs-12">
+    <span class="font-weight-bold">Project {{projectNumber}} has a start date that has changed from {{lastSavedStartDate | date:'M/d/yyyy'}} to {{projectStartDate | date:'M/d/yyyy'}}. </span>
+  </div>
+</div>
+        <table class="table invalidTable" style="overflow: visible !important;">
+          <thead>
+            <tr *ngIf="!hasInvalid()"><td>All resources start on or after the project start date.</td></tr>
+            <tr *ngIf="hasInvalid()"><td colspan="2">The resources below currently start before the current project start date.</td></tr>
+            <tr *ngIf="hasInvalid()">
+              <th>RESOURCE NAME</th>
+              <th>START DATE</th>
+          </tr>
+        </thead>
+        <tbody>
+         
+          <tr *ngFor="let resource of invalidResources">
+            <td>
+              {{resource.Name | displayText}}
+            </td>
+            <td>
+              {{getDateDisplayText(resource.StartWeekEndDate)}}
+            </td>
+          </tr>
+        </tbody>
+        </table>
+
+        <h6 *ngIf="!hasResourcesInPast">How would you like to handle this change?</h6>
+          
+          <div *ngIf="hasResourcesInPast" class="row optionRow table-error">
+             Date Error: Some resources are already in the past, so project data is invalid.  Please contact your system administrator to update these resources and their schedules.
+          </div>
+          <div *ngIf="!hasResourcesInPast" class="row optionRow">
+            <img [src]="getActionImage('changeDate')" (click)="setAction('changeDate')"   style="height: 20px; width: 20px;"  />Move ALL resources start date forward by {{numberOfDays}} days.
+          </div>
+          <div *ngIf="!hasResourcesInPast" class="row optionRow">
+          <img [src]="getActionImage('remove')" (click)="setAction('remove')"  style="height: 20px; width: 20px;"  /> Remove the invalid resources from the project.
+        </div>
+        <div *ngIf="!hasResourcesInPast" class="row optionRow">
+          <img [src]="getActionImage('none')" (click)="setAction('none')"   style="height: 20px; width: 20px;"  /> Do nothing. I will change each resource manually.
+        </div>
+        <div class="row optionRow">
+          <img [src]="getActionImage('unload')" (click)="setAction('unload')"   style="height: 20px; width: 20px;"  /> Exit the project without saving.
+        </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close(projectAction);">Ok</button>
+</div>

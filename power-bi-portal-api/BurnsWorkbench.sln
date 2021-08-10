@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurnsWorkbench", "BurnsWorkbench\BurnsWorkbench.csproj", "{E19C74AA-6038-4041-951F-ED701A5213DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkbenchService", "WorkbenchService\WorkbenchService.csproj", "{11275E44-F1D3-4676-9B21-73F53B5EC784}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E19C74AA-6038-4041-951F-ED701A5213DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E19C74AA-6038-4041-951F-ED701A5213DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E19C74AA-6038-4041-951F-ED701A5213DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E19C74AA-6038-4041-951F-ED701A5213DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11275E44-F1D3-4676-9B21-73F53B5EC784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11275E44-F1D3-4676-9B21-73F53B5EC784}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11275E44-F1D3-4676-9B21-73F53B5EC784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11275E44-F1D3-4676-9B21-73F53B5EC784}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9011CE9F-C0F8-464A-AE4A-219E6ACC0990}
+	EndGlobalSection
+EndGlobal

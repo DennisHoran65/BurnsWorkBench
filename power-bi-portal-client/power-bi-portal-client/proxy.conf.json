@@ -1,0 +1,11 @@
+
+{
+    "/api": {
+      "target": "http://localhost:56295",
+      "secure": false
+    },
+    "/workbenchApi": {
+      "target": "https://localhost:44349/api/workbench/",
+      "secure": false
+    }
+  }

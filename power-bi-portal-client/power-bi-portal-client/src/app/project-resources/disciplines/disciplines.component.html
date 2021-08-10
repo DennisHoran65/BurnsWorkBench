@@ -1,0 +1,145 @@
+<div class="container-fluid">
+    <div class="col-lg-12 order-lg-1" style="margin: 5px;">
+        <form class="needs-validation" novalidate [formGroup]="form">
+            <div class="row" style="margin-top: 10px; padding-left:0px;">
+                <div class="col-lg-10" style="padding-left:0px;" >
+                    <img id="disciplineChevronImage" src="../../../assets/images/chevron.svg" style="height: 100px; width: 100px; margin-left: 47px; margin-top: -35px;" >
+                    <table class="table table-hover table-no-border" style="margin-top:-42px;">
+                    <thead>
+                        <tr>
+                            <th style="border-top-left-radius:20px; width:200px;">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        {{"Discipline" | displayText : true}}
+                                        <img src="../../../assets/images/arrow_drop_up-24px.svg" 
+                                        *ngIf="displayAllDisciplines"
+                                        (click) = "setDisplayAll(false);"
+                                        style="height: 30px; width: 30px;" >
+                                    <img src="../../../assets/images/arrow_drop_down-24px.svg" 
+                                        *ngIf="!displayAllDisciplines"
+                                        (click) = "setDisplayAll(true);"
+                                        style="height: 30px; width: 30px;" >
+                                    </div>
+                                </div>
+                            </th>
+                            <th style="width:150px;">
+                                <div class="row justify-content-center" style="text-align: center;">
+                                    <div class="col-sm-4 col-sm-2-offset">
+                                        BUDGET<br/>PERCENT
+                                    </div>
+                                    <div class="col-sm-1" style="vertical-align: middle; text-align: center;"
+                                     (click) = "updateDisciplineAllocationStyle('PCT')">
+                                        <img src="../../../assets/images/check_box-24px.svg" 
+                                            *ngIf="displayStyle === 'PCT'"
+                                            style="height: 20px; width: 20px;" 
+                                        >
+                                        <img src="../../../assets/images/check_box_outline_blank-24px.svg" 
+                                        *ngIf="displayStyle === 'AMT'"
+                                        style="height: 20px; width: 20px;" 
+                                        >
+                                        
+                                    </div>  
+                                </div>
+                            </th>
+                            <th  style="width:150px;">
+                                <div class="row justify-content-center">
+                                    <div class="col-sm-4">
+                                        BUDGET<br/>AMOUNT
+                                    </div>
+                                    <div class="col-sm-1" style="vertical-align: middle;" (click) = "updateDisciplineAllocationStyle('AMT')">
+                                        <img src="../../../assets/images/check_box-24px.svg" 
+                                        *ngIf="displayStyle === 'AMT'"
+                                            style="height: 20px; width: 20px;" 
+                                        >
+                                        <img src="../../../assets/images/check_box_outline_blank-24px.svg" 
+                                        *ngIf="displayStyle === 'PCT'"
+                                        style="height: 20px; width: 20px;" 
+                                        >
+                                    </div>  
+                                </div>
+                            </th>
+                            <th  style="width:150px;">ALLOCATED<BR>BUDGET ($)</th>
+                            <th  style="width:150px;">UNALLOCATED<br/>BUDGET ($)</th>
+                            <th  style="width:150px;">NUMBER OF<br/>RESOURCES</th>
+                            <th style="border-top-right-radius:20px; width:150px;">ALLOCATED<br/>HOURS</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let d of uiProject.disciplines">
+                        <tr *ngIf="displayDisciplineReadOnly(d)" 
+                        style="height:32px;"
+                                (click)="editDiscipline(d)">
+                            <td >{{d.disciplineName | displayText}}</td>
+                            <td class="numeric" [ngClass]="{'table-editable' : displayStyle === 'PCT'}">{{d.pctAmount | displayNumber}}</td>
+                            <td class="numeric" [ngClass]="{'table-editable' : displayStyle === 'AMT'}">{{d.dolAmount | displayNumber}}</td>
+                            <td class="table-secondary numeric" [ngClass]="overAllocationErrorWarning(d.resourceDolAllocated, d.dolAmount )">{{d.resourceDolAllocated | displayCurrency}}</td>
+                            <td class="table-secondary numeric">{{d.dolNotAllocated  | displayCurrency}}</td>
+                            <td class="table-secondary numeric">{{d.numResources  | displayNumber}}</td>
+                            <td class="table-secondary numeric">{{d.allocatedHours  | displayNumber}}</td>
+                        </tr>
+                        <tr *ngIf="edittingDiscipline && d.disciplineName === edittingDiscipline.disciplineName" style="height:32px;">
+
+                            <td ><strong>{{d.disciplineName  | displayText}}</strong></td>
+                            <td class="numeric" *ngIf="displayStyle === 'PCT'" 
+                                    [ngClass]="{'table-editable' : displayStyle === 'PCT'}" 
+                                    [ngClass]="overBudgetErrorWarning()">
+                                <input id="pct_input" tabindex="0" 
+                                       type="text" 
+                                       class="input-pct" 
+                                       (focus)="$event.target.select()"
+                                       (blur)="clearEditingDiscipline()"
+                                       OnlyNumber="true" 
+                                       formControlName="discipline_pct_amount" 
+                                       (change)="updateDiscipline()">
+                            </td>
+                            <td class="numeric" *ngIf="displayStyle !== 'PCT'" [ngClass]="{'table-editable' : displayStyle === 'PCT'}">{{d.pctAmount | displayNumber}}</td>
+                            
+                            <td class="numeric" *ngIf="displayStyle === 'AMT'" 
+                                [ngClass]="{'table-editable' : displayStyle === 'AMT'}"
+                                [ngClass]="overBudgetErrorWarning()">
+                                <input id="dol_input" type="text" tabindex="0" 
+                                        class = "input-dol"
+                                       OnlyNumber="true" 
+                                       formControlName="discipline_dol_amount" 
+                                       (focus)="$event.target.select()"
+                                       (blur)="clearEditingDiscipline()"
+                                       (change)="updateDiscipline()" >
+                            </td>
+                            <td *ngIf="displayStyle !== 'AMT'" [ngClass]="{'table-editable' : displayStyle === 'AMT'}">{{d.dolAmount | displayNumber}}</td>
+                            
+                            <td class="table-secondary numeric" [ngClass]="overAllocationErrorWarning(d.resourceDolAllocated, d.dolAmount )">{{d.resourceDolAllocated | displayCurrency}}</td>
+                            <td class="table-secondary numeric">{{d.dolNotAllocated | displayCurrency}}</td>
+                            <td class="table-secondary numeric">{{d.numResources | displayNumber}}</td>
+                            <td class="table-secondary numeric">{{d.allocatedHours | displayNumber}}</td>
+                        </tr>                        
+                    </tbody>
+                    <tbody>
+                        <tr >
+                            <td style="text-align: right;">{{"Unallocated"  | displayText}}</td>
+                            <td class="numeric">{{UnallocatedPct | displayNumber}}</td>
+                            <td class="numeric">{{UnallocatedAmount | displayCurrency}}</td>
+                            <td colspan="4"> &nbsp;</td>
+                        </tr>
+                        <tr>
+
+                            <td style="text-align: right; border-bottom-left-radius:20px;">{{"Total"  | displayText}}</td>
+                            <td class="numeric" [ngClass]="overBudgetErrorWarning()">{{TotalPct | displayNumber}}</td>
+                            <td class="numeric" [ngClass]="overBudgetErrorWarning()">{{TotalAmount | displayCurrency}}</td>
+                            <td class="numeric" [ngClass]="overAllocationErrorWarning(TotalAllocatedAmt, TotalAmount)">{{TotalAllocatedAmt | displayCurrency}}</td>
+                            <td class="numeric">{{TotalNotAllocatedAmt | displayCurrency}}</td>
+                            <td class="numeric">{{TotalAllocatedResources | displayNumber}}</td>
+                            <td class="numeric" style="border-bottom-right-radius:20px;">{{TotalAllocatedHours | displayNumber}}</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-2">
+                    <div class="project-type-label">
+                        <span style="width:100%"> > {{projectType | displayText}} <</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

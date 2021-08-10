@@ -1,0 +1,56 @@
+@import '../../../style-variables.scss';
+
+
+.boo.modal-dialog.modal-dialog-centered{
+    max-width:750px !important; 
+    width: 750px !important;
+}
+
+
+table.table thead tr th {
+    max-width: 200px;
+    width:200px;
+    padding:.3rem;
+    border: 1px solid $table-non-editable;
+}
+
+.table tbody th {
+    max-width: 200px;
+    width:200px;
+    padding:.3rem;
+    border: 1px solid $table-info-background;
+}
+
+.table tfoot td {
+    background-color:$table-header;
+}
+
+.table thead td {
+    max-width: 200px;
+    width:200px;
+    align-items: center;
+    vertical-align: middle;
+    border: 1px solid $table-non-editable;
+}
+
+.table thead td.small {
+    max-width: 40px;
+    width:40px;;
+    align-items: center;
+    vertical-align: middle;
+    border: 1px solid $table-non-editable;
+}
+
+.table tbody td.small {
+    max-width: 40px;
+    width:40px;;
+    align-items: center;
+    vertical-align: middle;
+    border: 1px solid $table-info-background;
+}
+
+.table tr td {
+    align-items: center;
+    vertical-align: middle;
+    border: 1px solid $table-info-background;
+}

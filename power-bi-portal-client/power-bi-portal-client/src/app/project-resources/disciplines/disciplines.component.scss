@@ -1,0 +1,65 @@
+@import '../../../style-variables.scss';
+
+.table {
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-style: hidden; /* hide standard table (collapsed) border */
+}
+
+.table-editable {
+    background-color:$editable-field-background;
+}
+
+.table thead th {
+    max-width: 100px;
+    width:100px;
+    padding:.3rem;
+}
+
+.table thead td {
+    max-width: 100px;
+    width:100px;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.table tr td {
+    align-items: center;
+    vertical-align: middle;
+}
+
+
+.input-pct {
+    width: 40px;
+    // border: 0;
+    // box-shadow: none;
+    background-color: $editable-field-background;
+}
+
+.input-dol {
+    width: 70px;
+    // border: 0;
+    // box-shadow: none;
+    background-color: $editable-field-background;
+}
+
+.numeric {
+    text-align: center;
+}
+
+.project-type-label {
+    margin-left: 50px;;
+    display:flex;
+    background-color: $go-background;
+    padding-left: 10px;
+    padding-right: 10px;
+    height:64px;
+    text-align: center;
+    vertical-align: middle;
+    align-items: center;
+    align-content: center;
+    border-radius:5px;
+
+}

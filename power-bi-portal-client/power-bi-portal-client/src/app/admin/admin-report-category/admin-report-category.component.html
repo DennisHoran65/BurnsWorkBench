@@ -1,0 +1,56 @@
+<form novalidate >
+    <div class="modal-header" style="border:none;">
+          <h4>Report Category List</h4>
+    </div>
+    <div class="modal-body">
+        
+      <table class="table">
+          <thead>
+          <tr>
+          <th style="width:60px;"></th>
+          <th>Category Name</th>
+          <th>Order</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let category of categories">
+            <td *ngIf="!(category.reportCategoryId===editCategoryId)" style="width:60px;">
+                <img src="../../../assets/images/pencil.svg"  style="height: 20px; width: 20px;" ngbTooltip="Edit" (click)="setEdit(category)">
+            </td>
+            <td *ngIf="(category.reportCategoryId===editCategoryId)" style="width:60px;">
+              <img src="../../../assets/images/saveIcon.svg"  style="height: 20px; width: 20px;" ngbTooltip="Save" (click)="saveCategory()">
+              <img src="../../../assets/images/close-24px.svg"  style="height: 20px; width: 20px;" ngbTooltip="Cancel" (click)="cancelEdit()">
+          </td>
+              <td style="width:300px; text-align: left;"><span *ngIf="!(category.reportCategoryId===editCategoryId)">{{category.categoryName}}</span>
+                <input type="text" style="width:300px;" name="editCategoryName" [(ngModel)]="editCategoryName" *ngIf="category.reportCategoryId===editCategoryId" />
+              </td>
+              <td style="width:25px;">
+                <span *ngIf="!(category.reportCategoryId===editCategoryId)">{{category.displayOrder}}</span>
+                <input type="text" style="width:25px" name="editDisplayOrder" [(ngModel)]="editDisplayOrder" OnlyNumber="true"  *ngIf="category.reportCategoryId===editCategoryId" />
+                </td>
+                <td class="small">
+                  <img src="../../../assets/images/delete-24px.svg"  style="height: 20px; width: 20px;" ngbTooltip="Delete" (click)="deleteCategory(category)">
+              </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+      <h4>Add New Category</h4>
+    </div>
+    <div class="row">
+      <div class="col-md-2">Name:</div>
+      <div class="col-md-8"><input style="width:90%" name="newCategoryName" type="text" placeholder="enter new name" [(ngModel)]="newCategoryName"></div>
+      <div class="col-md-2">
+        <button class="btn btn-info addNew" (click)="addCategory()">ADD</button>
+    </div>
+    </div>
+
+    </div>
+   
+  </form>  
+    
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Close</button>
+    </div>
+  

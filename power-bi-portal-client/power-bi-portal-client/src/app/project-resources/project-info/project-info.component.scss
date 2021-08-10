@@ -1,0 +1,155 @@
+@import '../../../style-variables.scss';
+
+.sidenav  {
+   background-color: $project-info-pane;
+   transition: 0.5s;
+}
+
+.card {
+   background-color: $project-info-pane;
+}
+
+.project-info-div  {
+   background-color: $project-info-pane;
+}
+
+.roundedInput {
+   border-radius: 10px;
+   width: 240px;
+}
+
+.input-group {
+   padding-bottom: 5px;
+   color:$font-color;
+}
+
+.hidden { background-color: orange; display:none; }
+
+.btn-navigation {
+   margin-bottom:3px;
+   border-radius:10px 10px;
+   background-color: $button-background;
+   font-family: Lato;
+   font-size: 12px;
+   font-style: normal;
+   // font-variant: small-caps;
+   font-weight: 800;
+   line-height: 14px; 
+   color:$font-color;
+   height:27px;
+   width: 135px;
+}
+
+#sideNavExpanded {
+   transition: 0.5s;
+   min-height: 100vh;
+}
+
+a.sideMenuIcon > img:hover {
+   background-color: $button-background;
+}
+
+.btn-big-go {
+   margin-bottom:10px;
+   border-radius:10px 10px;
+   background-color: $go-background;
+   font-family: Lato;
+   font-size: 24px;
+   font-style: normal;
+   // font-variant: small-caps;
+   font-weight: 800;
+   line-height: 29px; 
+   color:$font-color;
+   width: 105px; 
+   height: 90px;
+}
+
+
+ .table-proj-info {
+   background-color: $project-info-pane;
+   padding-top: 100px;
+   margin-top: 20px;
+   width: 278px;
+   font-family: Lato;
+   font-size: 24px;
+   font-style: normal;
+   // font-variant: small-caps;
+   font-weight: 400;
+   line-height: 29px; 
+   color:$font-color;
+   text-align: left;
+
+ }
+
+ .proj-inf-header {
+    background-color: $project-info-background;
+    border-top-left-radius:10px; 
+    border-top-right-radius: 10px;
+    color:$font-color;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    font-family: Lato;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 13px; 
+    font-weight: 800;
+    text-align: left;
+    padding-left: 10px;
+ }
+
+ .table-pi {
+   background-color: $project-info-body;
+   padding-left: 10px;
+   padding-top: 3px;
+   font-size: 16px;
+   line-height: 13px; 
+   font-weight: 400;
+   color:$font-color;
+   border-top-style: none;
+   border-left-style: none;
+   border-right-style: none;
+   border-bottom-style: none;
+   font-family: Lato;
+   font-style: normal;
+   // font-variant: small-caps;
+   text-align: left;
+ }
+
+ .table-piTwoLine{
+   background-color: $project-info-body;
+   padding-left: 10px;
+   padding-top: 3px;
+   font-size: 16px;
+   font-style: normal;
+   font-weight: 400;
+   line-height: 20px; 
+   color:$font-color;
+   border-top-style: none;
+   border-left-style: none;
+   border-right-style: none;
+   border-bottom-style: none;
+   font-family: Lato;
+   text-align: left;
+ }
+
+ .table-pih {
+   background-color: $project-info-body;
+   padding-left: 10px;
+   padding-top: 13px;
+   font-size: 16px;
+   font-style: normal;
+   font-weight: 800;
+   line-height: 13px; 
+   color:$font-color;
+   border-top-style: none;
+   border-left-style: none;
+   border-right-style: none;
+   border-bottom-style: none;
+   font-family: Lato;
+   text-align: left;
+ }
+
+
+ 

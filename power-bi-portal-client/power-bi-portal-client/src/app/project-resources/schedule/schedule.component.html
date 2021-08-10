@@ -1,0 +1,245 @@
+<div class="container-fluid">
+    <div *ngIf="loading" style="width: 100%; align-content: center; vertical-align: middle;">
+        <div class="loader"></div>
+    </div>
+    <div *ngIf="!loading" class="col-lg-12 order-lg-1" style="margin-top: 20px; margin-left:-10px;">
+        <div *ngIf="selectedResource !== null" >  <!--style="width:100%; overflow-x: auto;"-->
+            <form class="needs-validation" novalidate [formGroup]="form">
+               
+                <!--
+                    <div [style.width.px]="divWidth" class="tableHeader">
+                        {{"HOURS PER WEEK FOR" | displayText}} {{selectedResource.Name | displayText}}
+                    </div>
+
+                 <div style="display:flex; flex-direction: row;">
+                    <div style="width:285px;">
+                            <div  style="display:flex; flex-direction: row;">
+                                <div class="headerOne">{{"Week #" | displayText}}</div>
+                                <div class="headerTwo">{{"Total" | displayText}}</div>
+                            </div>
+                           <div style="display:flex; flex-direction: row;">
+                                    <div class="headerOne">{{"Week Ending" | displayText}}</div>
+                                    <div class="headerTwo">&nbsp;</div>
+                            </div>
+                            <div style="display:flex; flex-direction: row;">
+                                    <div class="headerOne">{{"Hours" | displayText}}</div>
+                                    <div class="headerTwo">{{getEmployeeHoursForAllWeeks()}}</div>
+                            </div>
+                        
+                        <div style="display:flex; flex-direction: row;">
+                            <div class="headerOne">{{"Amt" | displayText}}</div>
+                            <div class="headerTwo"> {{(displayRate ? getEmployeeAmtForAllWeeks() : null) | displayCurrency}}
+                        </div>
+                    </div>
+                    <div style="display:flex; flex-direction: row;">
+                        <div class="headerOne">{{"UTIL (PROJECT)" | displayText}}</div>
+                        <div class="headerTwo">{{getEmployeeUtilForAllWeeks() * 100 | displayNumber}}%</div>
+                    </div>
+                    <div style="display:flex; flex-direction: row;">
+                        <div class="headerOne">{{"Hours All Project" | displayText}}</div>
+                        <div class="headerTwo">{{getEmployeeHoursOtherProjectsAllWeeks() | displayNumber}}</div>
+                    </div>
+                    <div style="display:flex; flex-direction: row;">
+                        <div class="headerOne">{{"UTIL (ALL PROJECT)" | displayText}}</div>
+                        <div class="headerTwo">{{getEmployeeUtilOtherProjectsTotal() * 100 | displayNumber}}%</div>
+                    </div>
+                    <div style="display:flex; flex-direction: row;">
+                        <div class="headerDouble table-info">{{"ALL RESOURCES ON PROJECT" | displayText}}</div>
+                    </div>
+                   
+                    <div style="display:flex; flex-direction: row;">
+                        <div class="headerOne">
+                                {{"TOTAL HOURS" | displayText}}
+                        </div>
+                        <div class="headerTwo"> {{getProjectTotalHoursAllWeeks() | displayNumber}}</div>
+                    </div>
+                    <div style="display:flex; flex-direction: row; border-bottom-left-radius: 25px;">
+                        <div class="headerOne" style="border-bottom-left-radius: 25px;">
+                                {{"TOTAL COST" | displayText}}
+                        </div>
+                        <div class="headerTwo">{{(displayRate ? getProjectTotalCostAllWeeks() : null) | displayCurrency}}</div>
+                    </div>
+                </div>
+                           
+                        <div  class="topDiv" style="width:1800px">
+                            <div style="vertical-align: middle; margin-left:0px; width:1000px"> 
+                                <div class="row dataRow">
+                                    <div *ngFor="let week of weeks" class="dataOne" >{{(week ? week + 1 : null) | displayNumber}}</div>
+                                </div>
+                                <div class="row dataRow">
+                                <div class="dataOne" *ngFor="let week of weekEnding" >{{week | date : 'shortDate'}}</div>
+                            </div>
+                            <div class="row dataRow">
+                                <div class="table-editable" *ngFor="let week of weekEnding" style="width:85px;min-width:85px;">
+                                    <span *ngIf="selectedEditCustomWeek!==week && selectedEditCustomWeek!==null">{{getEmployeeHoursForWeekEnding(week) | displayNumber}}</span>
+                                    <span *ngIf="selectedEditCustomWeek===null"
+                                         (click)="selectEditCustomWeek(week)">{{getEmployeeHoursForWeekEnding(week) | displayNumber}}</span>
+    
+                                    <input class="input-background form-control form-control-sm" *ngIf="selectedEditCustomWeek===week" 
+                                        style="height:20px; width:40px; display: inline-block;"
+                                        (keydown)="validateHours($event)" 
+                                        OnlyNumber="true" 
+                                        type="text" formControlName="customHoursForWeek">
+                                    <img *ngIf="selectedEditCustomWeek===week" src="../../../assets/images/check-24px.svg"
+                                        style="height: 16px; width: 16px;" (click)="saveCustomWeek(week)">
+                                    <img *ngIf="selectedEditCustomWeek===week" src="../../../assets/images/close-24px.svg"
+                                        style="height: 16px; width: 16px;" (click)="selectedEditCustomWeek=null" >
+                                        <img *ngIf="selectedEditCustomWeek===week" src="../../../assets/images/clearimage.svg" ngbTooltip="Clear all hours from here forward."
+                                        style="height: 16px; width: 16px;" (click)="clearWeeksStartingWith(week)">
+                                </div>
+                            </div>
+                            
+                            <div class="row dataRow">
+                                <div  class="dataOne"*ngFor="let week of weekEnding" >
+                                    {{(displayRate ? getEmployeeAmtForWeekEnding(week) : null) | displayCurrency}}
+                                </div>     
+                            </div>
+                            <div class="row dataRow">
+                                <div class="dataOne" *ngFor="let week of weekEnding" >
+                                    {{getEmployeeUtilForWeekEnding(week) * 100 | displayNumber}}%
+                                </div>     
+                            </div>
+                            <div class="row dataRow">
+                                <div class="dataOne" *ngFor="let week of weekEnding" >
+                                    {{getEmployeeHoursOtherProjects(week) | displayNumber}}
+                                </div>     
+                            </div>
+                            <div class="row dataRow">
+                                <div class="dataOne" *ngFor="let week of weekEnding" >
+                                    {{getEmployeeUtilOtherProjects(week) * 100 | displayNumber}}%
+                                </div>     
+                            </div>
+        
+                            <div class="row dataRow" style="width:100%">
+                                <div class="table-info">{{"(HOURS/COST)" | displayText}}</div>
+                            </div>
+                            <div class="row dataRow">
+                                <div class="dataOne" *ngFor="let week of weekEnding" >
+                                    {{getProjectTotalHoursForWeek(week) | displayNumber}}
+                                </div>     
+                            </div>
+                            <div class="row dataRow">
+                                <div class="dataOne" *ngFor="let week of weekEnding" >
+                                    {{(displayRate ? getProjectTotalCostForWeek(week) : null) | displayCurrency}}
+                                </div>     
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+  
+                -->
+
+                <table id="scheduleTable" class="table table-responsive" style="max-width: 1500px;">
+                    <thead>
+                        <tr>
+                            <th [attr.colspan]="3" style="border-top-left-radius: 25px; position: absolute; left:15px; padding-left: 24px; width:400px; height: 25px; text-align: left; z-index:1">
+                                {{"  HOURS PER WEEK FOR" | displayText}} {{selectedResource.Name | displayText}}
+                            </th>
+                            <th [attr.colspan]="weeks.length>1 ? weeks.length-1: 1" [style.left.px]="weeks.length>1 ? 370 : 285" style="border-top-right-radius:25px; position: relative; text-align: left; max-width:1100px; z-index: 0; padding-right:0px;">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduleTableBody">
+                        <tr>
+                            <td class="leftFixedOne">{{"Week #" | displayText}}</td>
+                            <td class="leftFixedTwo">TOTAL</td>
+                            <td *ngFor="let week of weeks" [ngClass]="{'scheduleCol': weeks.length>1,
+                                                                      'scheduleColTwo':weeks.length==1}">{{(week ? week + 1 : null) | displayNumber}}</td>
+                        </tr>
+                        <tr>
+                            <td class="leftFixedOne">{{"Week Ending" | displayText}}</td>
+                            <td class="leftFixedTwo">&nbsp;</td>
+                            <td *ngFor="let week of weekEnding" class="scheduleCol">{{week | date : 'shortDate'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="leftFixedOne" style="height:48px;">{{"Hours" | displayText}}</td>
+                            <td class="leftFixedTwo" style="height:48px;">{{getEmployeeHoursForAllWeeks()}}</td>
+                            <td class="table-editable" *ngFor="let week of weekEnding">
+                                <span *ngIf="selectedEditCustomWeek!==week && selectedEditCustomWeek!==null">{{getEmployeeHoursForWeekEnding(week) | displayNumber}}</span>
+                                <span *ngIf="selectedEditCustomWeek===null"
+                                     (click)="selectEditCustomWeek(week)">{{getEmployeeHoursForWeekEnding(week) | displayNumber}}</span>
+
+                                <input class="input-background form-control form-control-sm" *ngIf="selectedEditCustomWeek===week" 
+                                    style="height:20px; width:40px; display: inline-block;"
+                                    (keydown)="validateHours($event)" 
+                                    OnlyNumber="true" 
+                                    type="text" formControlName="customHoursForWeek">
+                                <img *ngIf="selectedEditCustomWeek===week" src="../../../assets/images/check-24px.svg"
+                                    style="height: 16px; width: 16px;" (click)="saveCustomWeek(week)">
+                                <img *ngIf="selectedEditCustomWeek===week" src="../../../assets/images/close-24px.svg"
+                                    style="height: 16px; width: 16px;" (click)="selectedEditCustomWeek=null" >
+                                    <img *ngIf="selectedEditCustomWeek===week" src="../../../assets/images/clearimage.svg" ngbTooltip="Clear all hours from here forward."
+                                    style="height: 16px; width: 16px;" (click)="clearWeeksStartingWith(week)">
+                            </td>
+                            <td *ngIf="selectedResource.hasOverride()" style="width:30px;" class="scheduleCol">
+                                
+                                <img id="addWeeksImage" src="../../../assets/images/right-arrow.svg" ngbTooltip="Add weeks"
+                                    style="height: 16px; width: 16px;" (click)="showAddWeeks()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftFixedOne"> {{"Amt" | displayText}}</td>
+                            <td class="leftFixedTwo"> {{(displayRate ? getEmployeeAmtForAllWeeks() : null) | displayCurrency}}</td>
+                            <td *ngFor="let week of weekEnding"   class="scheduleCol">
+                                {{(displayRate ? getEmployeeAmtForWeekEnding(week) : null) | displayCurrency}}
+                            </td>          
+                        </tr>
+                        <tr>
+                            <td class="leftFixedOne">{{"UTIL (PROJECT)" | displayText}}</td>
+                            <td class="leftFixedTwo"> {{getEmployeeUtilForAllWeeks() * 100 | displayNumber}}%</td>
+                            <td *ngFor="let week of weekEnding" 
+                               [ngClass]="utilityErrorWarning(getEmployeeUtilForWeekEnding(week) ,'scheduleCol')">
+                                {{getEmployeeUtilForWeekEnding(week) * 100 | displayNumber}}%
+                            </td>                            
+                        </tr>
+                        <tr>
+                            <td class="leftFixedOne" >{{"Hours All Project" | displayText}}</td>
+                            <td class="leftFixedTwo">{{getEmployeeHoursOtherProjectsAllWeeks() | displayNumber}}</td>
+                            <td *ngFor="let week of weekEnding" class="scheduleCol">
+                                {{getEmployeeHoursOtherProjects(week) | displayNumber}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftFixedOne">{{"UTIL (ALL PROJECT)" | displayText}}</td>
+                            <td [ngClass]="utilityErrorWarning(getEmployeeUtilOtherProjectsTotal(),'leftFixedTwo')" >{{getEmployeeUtilOtherProjectsTotal() * 100 | displayNumber}}%</td>
+                            <td *ngFor="let week of weekEnding"  [ngClass]="utilityErrorWarning(getEmployeeUtilOtherProjects(week),'scheduleCol')">
+                                {{getEmployeeUtilOtherProjects(week) * 100 | displayNumber}}%
+                            </td>
+                        </tr>
+                        <tr class="summary">
+                            <td class="leftFixedDouble" colspan="3">
+                                {{"ALL RESOURCES ON PROJECT (HOURS/COST)" | displayText}}  <!-- (HOURS/COST)-->
+                            </td>
+                            <td *ngFor="let week of weekEnding" class="scheduleCol">
+                               &nbsp;
+                            </td>
+                           
+                        </tr>
+
+                        <tr>
+                            <td class="leftFixedOne"  >
+                                {{"TOTAL HOURS" | displayText}}
+                            </td>
+                            <td class="leftFixedTwo" > {{getProjectTotalHoursAllWeeks() | displayNumber}}</td>
+                            <td *ngFor="let week of weekEnding" class="scheduleCol">
+                                {{getProjectTotalHoursForWeek(week) | displayNumber}}
+                            </td>
+                        </tr>
+                        <tr style="line-height:32px;">                                         
+                            <td class="leftFixedOne" style="border-bottom-left-radius: 25px; line-height:32px;" >
+                                {{"TOTAL COST" | displayText}}
+                            </td>
+                            <td class="leftFixedTwo" style="height:40px; line-height: 32px;">{{(displayRate ? getProjectTotalCostAllWeeks() : null) | displayCurrency}}</td>
+                            <td *ngFor="let week of weekEnding; last as isLast" 
+                                    [ngClass]="{'bottom-right-corner' : isLast,
+                                                'scheduleCol':true,
+                                                'bottomRow':true}" >
+                                {{(displayRate ? getProjectTotalCostForWeek(week) : null) | displayCurrency}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </form>
+        </div>
+    </div>
+</div>

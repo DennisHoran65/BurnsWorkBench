@@ -1,0 +1,17 @@
+{
+  "hosting": [
+    {
+      "app": {
+        "project": "power-bi-portal-client",
+        "target": "build",
+        "configuration": "production",
+        "path": "dist/power-bi-portal-client"
+      },
+      "azureHosting": {
+        "subscription": "a2d71460-e37c-46ec-8490-8301e21d7c79",
+        "resourceGroupName": "ProjectResourceWorkbench",
+        "account": "workbenchdevstatic"
+      }
+    }
+  ]
+}

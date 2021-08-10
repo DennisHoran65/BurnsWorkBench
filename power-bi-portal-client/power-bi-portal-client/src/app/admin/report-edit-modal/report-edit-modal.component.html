@@ -1,0 +1,102 @@
+<form novalidate >
+    <div class="modal-header" style="border:none;">
+          <h4>{{headerText | displayText}}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row form-group">
+            <div class="col-md-3"> <label for="reportName">Name:</label></div>
+            <div class="col-md-9">
+                <input id="reportName" name="reportName"
+                       [ngClass]="{'form-control form-control-sm':true,
+                                    'input-background': validName(),
+                                    'table-error': !validName() }" type="text"
+                style="height:30px; width:250px; display: inline-block;"
+                [(ngModel)]="report.reportName" />
+            </div>
+          </div>
+        <div class="row form-group">
+          <div class="col-md-3">
+          <label for="reportCategory">Category:</label>
+          </div><div class="col-md-9">
+            <select id="category" name="category"
+            [(ngModel)]="report.reportCategoryId"
+           >
+           <option *ngFor="let category of categoryList" 
+           [value]="category.reportCategoryId">
+           {{category.categoryName | displayText}}</option>
+         </select>   
+          </div>
+        </div>
+    
+        <div class="row form-group">
+            <div class="col-md-3">
+            <label for="pbiName">Power BI Report Name:</label>
+            </div><div class="col-md-9">
+              <select id="pbiName" name="pbiName"
+              [(ngModel)]="report.powerBIReportName"
+             >
+             <option *ngFor="let pbi of pbiReportList" 
+             [value]="pbi">
+             {{pbi | displayText}}</option>
+           </select>   
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-3"> <label for="pbiTab">PowerBI Tab:</label></div>
+            <div class="col-md-9">
+                <input id="pbiTab" name="pbiTab"
+                       [ngClass]="{'form-control form-control-sm':true,
+                                    'input-background': true }" type="text"
+                style="height:30px; width:250px; display: inline-block;"
+                [(ngModel)]="report.selectedTab" />
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-3"> <label for="description">Description:</label></div>
+            <div class="col-md-9">
+                <textarea id="description" name="description" rows="5" cols="60"
+                       [ngClass]="{'form-control form-control-sm':true,
+                                    'input-background': validDescription(),
+                                    'table-error': !validDescription() }" 
+                                    [(ngModel)]="report.description"></textarea>
+            </div>
+          </div>
+        
+    
+      <div class="row form-group">
+        <div class="col-md-3"> <label for="displayOrder">Display Order:</label></div>
+        <div class="col-md-9">
+            <input id="displayOrder" name="displayOrder"
+                   [ngClass]="{'form-control form-control-sm':true,
+                                'input-background': validDisplayOrder(),
+                                'table-error': !validDisplayOrder() }" type="text"
+            OnlyNumber="true" 
+            style="height:30px; width:50px; display: inline-block;  text-align: right;"
+            [(ngModel)]="report.displayOrder"
+             />
+        </div>
+      </div>
+      <h6>Roles</h6>
+      <table class="table">
+          <thead>
+          <tr>
+          <th>Role Name</th>
+          <th>Show Report ?</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let role of roleList">
+              <td>{{role.roleName}}</td>
+              <td><input type="checkbox" (click)="toggleRole(role.roleId)" [checked]="isRoleSelected(role.roleId)"></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </form>  
+    
+    <div class="modal-footer">
+      <button type="button" [ngClass]="{'btn btn-outline-dark': true,
+                                         'disabled': !formValid()}" (click)="closeModalAndSave()">Ok</button>
+      <button type="button" class="btn btn-outline-dark" (click)="closeModalWithoutSave();">Cancel</button>
+    </div>
+  

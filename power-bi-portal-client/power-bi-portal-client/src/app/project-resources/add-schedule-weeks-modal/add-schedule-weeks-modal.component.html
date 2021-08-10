@@ -1,0 +1,74 @@
+<form class="needs-validation" novalidate [formGroup]="form">
+  <div class="modal-header" style="border:none;">
+        <h4>Add Weeks for Resource </h4>
+  </div>
+  <div class="modal-body">
+    <div class="row form-group">
+      <div class="col-md-5">
+      <label for="name">Name:</label>
+      </div><div class="col-md-7">
+      <span id="name">{{resourceName}}</span>
+      </div>
+  </div>
+      <div class="row form-group">
+        <div class="col-md-5">
+          <label for="startDate">First Week End Date:</label>
+        </div>
+           <div class="col-md-7">
+             <div class="input-group">
+              <input [ngClass]="{'form-control dt': true,
+                                 'input-background': validStartDate(),
+                                 'table-error': !validStartDate()}" placeholder="mm/dd/yy" name="dp" 
+            (click)="d.toggle()"
+            (keydown)="d.toggle()"
+            formControlName="dt" ngbDatepicker #d="ngbDatepicker"
+            style="text-align: right;"
+             [ngModel]="firstWeekEndDate"
+          (ngModelChange)="updateStartDate($event)"
+            [minDate]="minDate">
+        
+            <div class="input-group-append" style="height: 30px; width: 20px;">
+            <button class="btn btn-outline-secondary calendar" (click)= "d.toggle();" type="button"  style="height: 30px; width: 20px;">
+                <img src="../../../assets/images/calendar_today-24px.svg" style="height: 20px; width: 20px; margin-left: -10px; margin-bottom: 2px; margin-top: -6px;">
+            </button>
+            </div>
+        </div>
+       
+    </div>
+    </div>
+   
+    <div class="row form-group">
+      <div class="col-md-5"> <label for="hoursPerWeek">Hours per week:</label></div>
+      <div class="col-md-7">
+          <input id="hoursPerWeek"
+                 [ngClass]="{'form-control form-control-sm':true,
+                              'input-background': validHoursPerWeek(),
+                              'table-error': !validHoursPerWeek() }" type="text"
+          OnlyNumber="true" 
+          formControlName="resourceHoursPerWeek"
+          style="height:30px; width:50px; display: inline-block;  text-align: right;"
+               />
+
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-md-5"> <label for="numberOfWeeks"># weeks:</label></div>
+      <div class="col-md-7">
+        <input id="numberOfWeeks"
+        [ngClass]="{'form-control form-control-sm':true,
+        'input-background': validNumberOfWeeks(),
+        'table-error': !validNumberOfWeeks() }" type="text"
+        OnlyNumber="true" 
+        style="height:30px; width:50px; display: inline-block; text-align: right;"
+        formControlName="resourceNumberOfWeeks"  />
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="modal-footer">
+    <button type="button" [ngClass]="{'btn btn-outline-dark': true,
+                                       'disabled': !formValid()}" (click)="closeModal(true)">Ok</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal(false);">Cancel</button>
+  </div>
+  </form>

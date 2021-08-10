@@ -1,0 +1,106 @@
+@import '../../style-variables.scss';
+
+.rpt-list-category {
+    margin-bottom:10px;
+    border-radius:10px 10px;
+    background-color: $report-category-color;
+    font-family: Lato;
+    font-size: 14px;
+    font-style: italic;
+    // font-variant: small-caps;
+    font-weight: normal;
+    line-height: 14px; 
+    color:$font-color;
+    width:220px;
+    text-align:center;
+ }
+
+ ::-webkit-scrollbar {
+   width: 10px;
+ }
+ 
+ /* Track */
+ 
+ ::-webkit-scrollbar-track {
+   box-shadow: inset 0 0 5px grey; 
+   border-radius: 5px;
+ }
+  
+ /* Handle */
+
+ ::-webkit-scrollbar-thumb {
+   background: $report-list-selected-color;
+   border-radius: 5px;
+ }
+ 
+ /* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+   background:#CCCCCC; 
+ }
+ 
+.bold {font-weight: bold; text-decoration: underline;}
+
+.sideNav  {
+   background-color: $project-info-pane;
+   width:312;
+   transition: 0.5s;
+}
+
+ .rpt-list {
+    margin-bottom:10px;
+    margin-left: 0px;
+    border-radius:10px 10px;
+    background-color: $report-list-color;
+    font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    // font-variant: small-caps;
+    font-weight: 800;
+    text-decoration: underline;
+    line-height: 14px; 
+    color: $font-color;
+    width:220px;
+    text-align:center;
+ }
+
+ div.rpt-list:hover {
+     background-color: $report-list-selected-color;
+     cursor: pointer;
+ }
+
+ .rpt-list-selected {
+    margin-bottom:10px;
+    margin-left: 0px;
+    border-radius:10px 10px;
+    background-color: $report-list-selected-color;
+    font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    // font-variant: small-caps;
+    font-weight: bold;
+    text-decoration: underline;
+    line-height: 14px; 
+    color: $font-color;
+    width:220px;
+    text-align:center;
+ }
+
+ .reportDescription {
+   background-color: $report-description-background;
+   flex-shrink: 1;
+   padding: 15px; 
+   border-radius:10px;
+   min-height: 0;
+   line-height: auto;
+   
+ }
+
+ .reportRunButton {
+    background-color: $runReports-background;
+    font-weight: bold
+ }
+
+ .reportRunButtonText {
+     background-color: transparent;
+ }

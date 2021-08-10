@@ -1,0 +1,80 @@
+<div style="margin-top:120px;">
+    
+    <div class="container">
+        <div class="row">
+            <h4>Report List Admin</h4>
+        </div>
+        <div class="row">
+        <div class="col-lg-10 order-lg-1" style="margin: 5px;">
+    <table class="table" style="table-layout: auto;">
+        <thead>
+        <tr>
+            <th class="small" style="border-top-left-radius:20px; width:200px; border:none;"> </th>
+            <th><a [ngClass]="{'sortHeader':search.sortField=='reportname'}" (click)="updateSort('reportname')"> {{"Report Name" | displayText}}</a></th>
+            <th><a [ngClass]="{'sortHeader':search.sortField=='powerbireportname'}" (click)="updateSort('powerbireportname')"> {{"Power BI Report Name" | displayText}}</a></th>
+            <th><a [ngClass]="{'sortHeader':search.sortField=='selectedtab'}" (click)="updateSort('selectedtab')"> {{"Power BI Report Tab" | displayText}}</a></th>
+            <th><a [ngClass]="{'sortHeader':search.sortField=='categoryname'}"(click)="updateSort('categoryname')"> {{"Category Name" | displayText}}</a></th>
+            <th><a [ngClass]="{'sortHeader':search.sortField=='displayorder'}" (click)="updateSort('displayorder')"> {{"Order" | displayText}}</a></th>
+            <th><a [ngClass]="{'sortHeader':search.sortField=='rolelistdescription'}" (click)="updateSort('rolelistdescription')"> {{"Roles" | displayText}}</a></th>
+            <th class="small" style="border-top-right-radius:20px; width:200px; border:none;"></th>
+        </tr>
+        <tr>
+            <th></th>
+            <th><input type="text" [(ngModel)]="search.reportName" (keyup)="updateSearch()"  placeholder="search name" /></th>
+            <th><input type="text" [(ngModel)]="search.powerBIName" (keyup)="updateSearch()" placeholder="search powerbi name" /></th>
+            <th></th>
+            <th><input type="text" [(ngModel)]="search.categoryName" (keyup)="updateSearch()"  placeholder="search category name" /></th>
+            <th></th>
+            <th><input type="text" [(ngModel)]="search.roleList" (keyup)="updateSearch()"  placeholder="search roles" /></th>    
+            <th></th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let report of reportList">
+            <td class="small">
+                <img src="../../../assets/images/pencil.svg"  style="height: 20px; width: 20px;" ngbTooltip="Edit report" (click)="editReport(report)">
+            </td>
+            <td>
+               {{report.reportName | displayText}}
+            </td>
+            <td>
+                {{report.powerBIReportName | displayText}}
+            </td>
+            <td>
+                {{report.selectedTab | displayText}}
+            </td>
+            <td>
+                {{report.categoryName | displayText}}
+            </td>
+            <td>
+                {{report.displayOrder }}
+            </td>
+            <td>{{report.roleListDescription}}</td>
+            <td class="small">
+                <img src="../../../assets/images/delete-24px.svg"  style="height: 20px; width: 20px;" ngbTooltip="Remove report" (click)="deleteReport(report)">
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <td colspan="8" style="border-bottom-left-radius: 20px;border-bottom-right-radius: 20px;"></td>
+    </tfoot>
+    </table>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-1 offset-md-1">
+            <button class="btn btn-info addNew" (click)="addReport()">ADD NEW</button>
+        </div>
+        <div class="offset-md-5 col-md-3">
+            <a (click)="openCategoryList()">Edit Category List</a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 80px;">
+        <span style="font-size: x-small;"> Environment: {{environmentName}}</span>
+    </div>
+    </div>
+    
+</div>
+

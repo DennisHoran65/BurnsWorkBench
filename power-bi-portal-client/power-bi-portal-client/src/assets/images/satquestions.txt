@@ -1,0 +1,23 @@
+Question 6 - Arc of a circle
+     ADC is 100 degrees. If awhole circle is 360, then ABC is 260 degrees. The length of an arc on a circle is proportional to the degrees.
+             So the arc is 260 degrees/100 degrees x 5 pi, or 2.6 * 5 pi, or 13 pi
+
+Question 10
+   (ax + 3)(5x2-bx+4) = 20x3 - 9x2 -2x+12
+if you multiply out the left side:
+    5ax3 -bax2 + 4ax + 15x2 -3bx + 12
+
+there is only one value on each side raised to the third power
+           5ax3 = 20x3 --> so 5a=20  so a=4
+
+If we group the squared values:
+          15x2 - bax2 = -9ax2
+    so 15 - ba =   -9  that means ba=24
+
+
+Question 12:
+   1/2x+1 +5
+   First thing to do is get a common denominator. The denominator is 2x+1
+so we multiply the 5
+
+

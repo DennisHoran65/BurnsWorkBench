@@ -1,0 +1,25 @@
+<div class="container-fluid" style="margin-top: 96px;" >
+  <div class="row" style="display:flex; flex-direction:row;">
+    <div style="display:flex; padding-left: 0px;">
+      <app-project-info></app-project-info>
+    </div>
+    <div *ngIf="currentProject" id="pageContent"
+      style="margin-top: 0px; padding-left: 0px; padding-top:0px; 
+          background-color: white; width: 900px; overflow: auto" >
+        <form [formGroup]="tabSelectorFormGroup">
+          <div *ngIf="loading" style="width: 100%; align-content: center; vertical-align: middle;">
+            <div class="loader"></div>
+          </div>
+          <div *ngIf="!loading">
+            <app-disciplines></app-disciplines>
+            <app-resources></app-resources>
+            <app-schedule></app-schedule>
+          </div>
+        </form>
+    </div>
+    <div *ngIf="!currentProject" id="pageContent" 
+          style="padding-left: 0px; padding-top:0px; background-color: white;">
+        <div style="padding-left: 20px; margin-top:35px;">{{pleaseSelectMessage}}</div>
+      </div>
+  </div>
+</div>

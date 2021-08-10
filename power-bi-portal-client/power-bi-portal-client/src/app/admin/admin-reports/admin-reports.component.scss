@@ -1,0 +1,64 @@
+@import '../../../style-variables.scss';
+
+
+.table thead th {
+    max-width: 200px;
+    width:200px;
+    padding:.3rem;
+    border: 1px solid $table-non-editable;
+}
+
+.table tbody th {
+    max-width: 200px;
+    width:200px;
+    padding:.3rem;
+    border: 1px solid $table-info-background;
+}
+
+.table tfoot td {
+    background-color:$table-header;
+}
+
+.table thead td {
+    max-width: 200px;
+    width:200px;
+    align-items: center;
+    vertical-align: middle;
+    border: 1px solid $table-non-editable;
+}
+
+.table thead td.small {
+    max-width: 40px;
+    width:40px;;
+    align-items: center;
+    vertical-align: middle;
+    border: 1px solid $table-non-editable;
+}
+
+.table tbody td.small {
+    max-width: 40px;
+    width:40px;;
+    align-items: center;
+    vertical-align: middle;
+    border: 1px solid $table-info-background;
+}
+
+.table tr td {
+    align-items: center;
+    vertical-align: middle;
+    border: 1px solid $table-info-background;
+}
+
+.addNew {
+    background-color: $go-background;
+    color: $font-color;
+}
+
+a.sortHeader {
+    font-weight: bold;
+    text-decoration: underline;
+    font-style: italic;
+    background-color: $table-info-background;
+}
+
+a:hover {cursor: pointer;}

@@ -1,0 +1,80 @@
+<form class="needs-validation" novalidate [formGroup]="form">
+<div class="modal-header">
+  <h4 class="modal-title">Modify Project Start Date</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div id="collapseChangeStartDate" > <!--[ngbCollapse]="isChangeStartDateCollapsed"-->
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <span class="font-weight-bold">Select new project start date</span>
+        </div>
+        <div class="row">
+          <label class="control-label" for="projectTask">Current project start date: <span class="font-weight-bold">{{currentStartDate  | date : 'shortDate'}}</span></label>
+        </div>
+        <div *ngIf="hasResourcesInPast" class="row optionRow table-error">
+          Date Error: Some resources are already in the past, so project data is invalid.  Please contact your system administrator to update these resources and their schedules.
+       </div>
+
+        <div class="row" *ngIf="!hasResourcesInPast">
+          <div class="input-group" style="padding-bottom: 5px;">
+            <div class="row form-group">
+ 
+              <div class="col-md-5">New Start Date:</div>
+              <div class="col-md-4">
+              <input [ngClass]="{'form-control dt': true,
+              'input-background': true,
+              'table-error': false}" placeholder="mm/dd/yy" name="dp" 
+               (click)="d.toggle()"
+               (keydown)="d.toggle()"
+               formControlName="newStartDateNgb" ngbDatepicker #d="ngbDatepicker"
+               style="text-align: right;"
+               [ngModel]="newStartDate"
+               (ngModelChange)="updateStartDate()"
+               [minDate]="minDate"
+                />
+              </div>
+              <div class="input-group-append" style="height: 30px; width: 20px;">
+                <button class="btn btn-outline-secondary calendar" (click)= "d.toggle();" type="button"  style="height: 30px; width: 20px;">
+                    <img src="../../../assets/images/calendar_today-24px.svg" style="height: 20px; width: 20px; margin-left: -10px; margin-bottom: 2px; margin-top: -6px;">
+                </button>
+                </div>
+            </div>
+            <div class="invalid-feedback">
+              Start Date is required.
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="!hasResourcesInPast">
+          <div class="input-group" style="padding-bottom: 5px;">
+            <div class="form-group">
+              <label class="control-label" for="projectTask">How would you like to handle current resources?</label>
+              <div >
+                <div >
+               
+                <img [src]="getActionImage('move')" (click)="setAction('move')"   style="height: 20px; width: 20px;"  /> <span>Move start date of all resources forward by {{daysDiff}}
+                  days</span><br/>
+
+                  <img [src]="getActionImage('remove')" (click)="setAction('remove')"   style="height: 20px; width: 20px;"  /> <span>Remove all resources and
+                    start over</span><br/> 
+                  </div>
+              </div>
+            </div>
+            <div class="invalid-feedback">
+              A selection is required
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" *ngIf="!hasResourcesInPast" [ngClass]="{'btn btn-outline-dark': true,
+                                     'disabled': !formValid()}" (click)="closeModalWithSave()">Ok</button>
+  <button type="button" class="btn btn-outline-dark" (click)="closeModalWithoutSave();">Cancel</button>
+</div>
+</form>

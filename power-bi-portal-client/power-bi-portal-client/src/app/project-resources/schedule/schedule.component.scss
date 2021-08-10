@@ -1,0 +1,229 @@
+@import '../../../style-variables.scss';
+
+$table-boundary-background:#A99E9E;
+
+.table {
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+}
+
+
+
+.table tr td th {
+    height: 100px;
+}
+
+.bottom-right-corner {
+    border-bottom-right-radius: 25px;
+}
+
+td.row-header {
+    background-color: $table-non-editable;
+    min-width: 85px;
+    width: 85px;
+    height: 28px;
+    vertical-align: middle;
+}
+
+.table tbody tr td {vertical-align: middle; width:85px; min-width:85px;}
+
+.table td.addWeeksTD {width:300px; min-width:300px;}
+
+.table-bottom-right {
+    border-bottom-right-radius: 25px;;
+}
+.table-bottom-left {
+    border-bottom-left-radius: 25px;;
+}
+
+.table tbody tr td.leftFixedOne{
+    background-color: $table-non-editable;
+    min-width: 200px; 
+    width: 200px; 
+    position: absolute; 
+    left:15px;
+    height: 40px;
+    opacity: 1;
+    z-index: 1;
+ }
+
+ .table tbody tr td.leftFixedDouble{
+    min-width: 385px; 
+    width: 385px; 
+    position: absolute; 
+    height: 28px;
+    line-height: 28px;
+    left:15px;
+    z-index:2;
+    vertical-align: middle;
+    padding-top:0;
+    padding-bottom: 0;
+ }
+
+ .table tbody tr.summary {
+    z-index:2;
+    height:28px;
+    line-height: 28px;
+    vertical-align: middle;
+ }
+
+ .table tbody tr.summary td, .table tbody tr.summary td.leftFixedDouble  {
+    background-color:rgb(194,185,185);
+ }
+
+
+ .table tbody tr td.leftFixedTwo{
+    background-color: $table-non-editable;
+    min-width: 100px; 
+    width: 100px; 
+    position: absolute; 
+    height: 40px;
+    left:200px;
+    z-index: 1;
+ }
+
+ #scheduleTable
+ {scroll-behavior: smooth;}
+
+ .scheduleCol{
+     position: relative;
+     width:85px;
+     min-width:85px;
+     left:285px;
+     z-index: 0;
+ }
+
+ .table tbody tr td.scheduleColTwo{
+    position: relative;
+    width:170px;
+    min-width:170px;
+    left:285px;
+    z-index: 0;
+}
+
+ .bottomRow {
+     height:32px;
+     line-height: 32px;
+ }
+
+ .table-editable {
+    background-color:#C4C4C4;
+    position: relative;
+    width:85px;
+    min-width:85px;
+    left:285px;
+    z-index: 0;
+}
+
+ .holder
+ {
+     width:12px;
+     position: relative;
+     left:300px;
+ }
+
+ .leftFixedOneHigh{
+    background-color: aliceblue;
+    min-width: 125px; 
+    width: 125px; 
+    position: absolute; 
+    left:15px;
+    height: 90px;
+    min-height:90px;
+    color: orange;
+    border: 1px solid black;
+ }
+
+ .headerOne {
+    background-color: $table-non-editable; 
+    width:200px; 
+    min-width:200px; 
+    text-align:center;
+    font-size:14px;
+    height: 28px;
+    vertical-align: middle;
+}
+.headerTwo {
+    background-color: $table-non-editable; 
+    width:85px; 
+    min-width:85px; 
+    text-align:center;
+    font-size:14px;
+    height: 28px;
+    vertical-align: middle;
+}
+
+.headerDouble{
+    background-color: $table-non-editable; 
+    width:285px; 
+    min-width:85px; 
+    text-align:center;
+    font-size:14px;
+    height: 28px;
+    vertical-align: middle;
+}
+
+
+ .tableHeader {
+  background-color: $table-header;
+  width: 100%; 
+  border-top-left-radius: 25px; 
+  margin-top:10px; 
+  border-top-right-radius: 25px; 
+  padding-left: 20px; 
+  text-align: left;
+  vertical-align: top;
+  font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    // font-variant: small-caps;
+    font-weight: 800;
+    line-height: 16px; 
+    padding: .3rem;
+    padding-left:20px;
+    color: $font-color;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+}
+
+ 
+
+
+ .dataOne {
+    background-color: $table-info-background;
+    width:85px; 
+    min-width:85px; 
+    text-align:center;
+    color: $font-color;
+    font-size:14px;
+    height: 28px;
+    vertical-align: middle;
+}
+
+.dataTwo {
+    background-color: $table-info-background;
+    width:85px; 
+    min-width:85px; 
+    color: $font-color;
+    text-align:center;
+    font-size:14px;
+    vertical-align: middle;
+}
+
+.dataRow {
+    display:flex; 
+    flex-direction: row; 
+    margin-right:0px !important; 
+    margin-left:0px !important;
+    text-align: center;
+    height: 28px;
+    color: $font-color;
+}
+
+.topDiv {
+    overflow-x: auto;  border-bottom-right-radius: 25px;
+}

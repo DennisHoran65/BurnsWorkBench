@@ -1,0 +1,224 @@
+<div (window:resize)="onWindowResize($event)" class="sidenav" style="height:100%;">
+    <div style="padding-left: 0px;">
+        <div id="sideNavExpanded"  class="col-sm-12" style="padding-left:0px; width: 297px; margin-left: 0px;">
+            <form class="needs-validation" novalidate [formGroup]="form">
+                <div class="row">
+
+                    <button *ngIf="showSideMenu" type="button" class=" btn-navigation col-xs-1 offset-xs-10 offset-md-10 offset-lg-10" style="margin-top:10px" (click)="toggleSideNav()" ngbTooltip="Collapse search">&lt;</button>
+                    <button *ngIf="!showSideMenu" type="button" class=" btn-navigation" style="margin-top:10px" (click)="toggleSideNav()" ngbTooltip="Expand search">&gt;</button>
+
+                    <a *ngIf="!showSideMenu" (click)="Save()" class="sideMenuIcon" ngbTooltip="Save Project" style="margin-top:220px">
+                    <img src="../../../assets/images/saveIcon.svg" style="height:24px;width:24px;margin-bottom:20px; margin-left:20px; margin-right:20px; border:none; background-color: transparent;" />
+                   </a>
+
+                   <a *ngIf="!showSideMenu" (click)="updateDisplayRate(!currentlyShowingRate)" class="sideMenuIcon" ngbTooltip="View/Hide Financials">
+                    <img src="../../../assets/images/moneyIcon.svg" style="height:24px;width:24px; margin:20px; border:none; background-color: transparent;" />
+                   </a>
+
+                   <a *ngIf="!showSideMenu" (click)="cancelEdits()" class="sideMenuIcon" title="Cancel" ngbTooltip="Cancel Changes">
+                    <img src="../../../assets/images/close-24px.svg" style="height:24px;width:24px; margin:20px; border:none; background-color: transparent;" />
+                   </a>
+
+                  
+                 
+                </div>
+                <div class="row" style="margin: 5px;" *ngIf="showSideMenu">
+                    <div class="col-md-12" style="margin-top: 20px;">
+                        <!--Project Manager-->
+                        <div class="row">
+                            <div class="col-sm-12" style="margin-left: 0px; padding-left: 0px;">
+                                <label style="text-align: left;  margin-left: 0px; padding-left: 0px;"
+                                    for="projectManager">PROJECT MANAGER</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" *ngIf="showSideMenu">
+                                    <input id="typeahead-prevent-manual-entry" type="text" class="input-background form-control roundedInput"
+                                        style="height:30px; vertical-align:middle;"
+                                        formControlName="projectManager" [ngbTypeahead]="searchProjectManager"
+                                        [inputFormatter]="projectManagerFormatter" [resultFormatter]="projectManagerFormatter" [editable]='false'
+                                        placeholder="Type name"
+                                        (blur)='lostProjectManagerFocus()' 
+                                        (focus)= 'verifyProjectChange($event)' 
+                                        (selectItem)="selectProjectManager($event)" />
+                            </div>
+                        </div>
+            
+                        <!--Project Number and Name-->
+                        <div class="row" *ngIf="showSideMenu">
+                            <div class="col-sm-12" style="margin-left: 0px; padding-left: 0px;">
+                                <label style="text-align: left;  margin-left: 0px; padding-left: 0px;"
+                                    for="projectManager">{{projectType | displayText}} NUMBER AND NAME</label>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="showSideMenu">
+                            <div class="col-sm-12" id="scrollable-dropdown-menu">
+                                    <input id="typeahead-prevent-manual-entry" type="text" class="typeaheadNumber input-background form-control roundedInput"
+                                        style="height:30px; vertical-align:middle;"
+                                        formControlName="searchProjectControl" [ngbTypeahead]="searchProject"
+                                        [inputFormatter]="projectFormatter" [resultFormatter]="projectResultFormatter" [editable]='false'
+                                        placeholder="Type project #"
+                                        (blur)='lostProjectNumberFocus()' 
+                                        (focus)= 'verifyProjectChange($event)' 
+                                        (selectItem)="selectProjectNumber($event)" />
+                            </div>
+                        </div>
+                        <!--Project Task (SUB)-->
+                        <div class="row" *ngIf="showSideMenu">
+                            <div class="col-sm-12" style="margin-left: 0px; padding-left: 0px;">
+                                <label style="text-align: left;  margin-left: 0px; padding-left: 0px;"
+                                    for="projectManager">{{projectType | displayText}} TASK (SUB)</label>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="showSideMenu">
+                            <div class="col-sm-12 col-sm-3-offset" style="margin-bottom:10px;" [ngClass]="{'hidden': !showTaskInput}">
+                                <input type="text" id="taskNumberInput" class="typeaheadNumber input-background form-control roundedInput"
+                                        style="height:60px; vertical-align:middle;"
+                                        formControlName="projectTask" [ngbTypeahead]="searchTask"
+                                        [editable]='false'
+                                        placeholder="Task #"
+                                        (blur)='lostTaskNumberFocus()' 
+                                        (focus)="focus$.next($any($event).target.value)"
+                                        (selectItem)="changeProjectTask($event)"
+                                        />
+                            </div>
+                            <div (click)="focusTask()" style="margin-bottom:10px;"  
+                                                       class="col-sm-12 col-sm-3-offset" 
+                                                       [ngClass]="{'hidden': showTaskInput}">
+                                <div class="typeaheadNumber input-background form-control roundedInput" 
+                                     style="height:60px;">
+                                   <div style="height:60px; margin-top: 0;"> {{selectedProjectTask}}  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="border-top:black" *ngIf="showSideMenu">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <button [ngClass]="{'btn btn-navigation': true,
+                                                'disabled': !selectedProjectTask}"
+                                                   [ngStyle]="projectHasChanges ? {'background-color' : 'rgba(69%,22%,22%,.6)'} : {} " 
+                                                    style="width:130px; min-width: 130px;"
+                                                    (click)="Save()">SAVE</button>
+                                                    <button [ngClass]="{'btn btn-navigation': true,
+                                                    'disabled': !selectedProjectTask}" 
+                                                    *ngIf="!currentlyShowingRate"
+                                                    style="width:130px; min-width: 130px;"
+                                                    (click)="updateDisplayRate(true)">VIEW FINANCIALS</button>
+                                                <button [ngClass]="{'btn btn-navigation': true,
+                                                                    'disabled': !selectedProjectTask}"
+                                                        *ngIf="currentlyShowingRate"
+                                                    style="width:130px; min-width: 130px;"
+                                                    (click)="updateDisplayRate(false)">HIDE FINANCIALS</button>
+                                                    <button [ngClass]="{'btn btn-navigation': true,
+                                                    'disabled': !selectedProjectTask}"
+                                                    style="width:130px; min-width: 130px;"
+                                                    (click)="cancelEdits()">CANCEL</button>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button [ngClass]="{'btn btn-big-go': true,
+                                                                'disabled': ((!selectedProjectTask) || projectHasChanges )} " (click)="loadProject()"
+                                                                ng-disabled="!selectedProjectTask">
+                                                GO
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="selectedProjectInfo && showSideMenu">
+                            <table class="table borderless table-proj-info"
+                                style="margin-left: 3px;">
+                                <thead>
+                                    <th class="proj-inf-header">
+                                        {{projectType | displayText}} INFORMATION
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="table-pih">{{projectType | displayText}} NAME</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-piTwoLine">{{selectedTopLevelProjectName}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <tr>
+                                            <td class="table-pih">{{projectType | displayText}} TASK NAME</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-piTwoLine">{{selectedProjectInfo.projectName}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        <td class="table-pih">{{projectType.toLowerCase()==="project" ? "PROJECT START DATE" : "OBE ESTIMATED START DATE"}}</td>
+                                    </tr>
+                                    <tr *ngIf="currentlyEditingProject && !projectHasChanges">
+                                        <td class="table-pi">
+                                            {{selectedProjectInfo.startDate  | date : 'shortDate'}}
+                                            <img src="../../../assets/images/pencil.svg"
+                                            (click)="editProjectStartDate()"
+                                            style="height: 20px; width: 20px;" class="clickImage">
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!selectedProjectInfo || projectHasChanges">
+                                        <td class="table-pi">{{selectedProjectInfo.startDate  | date : 'shortDate'}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-pih">{{projectType | displayText}} PROFIT CENTER</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-pi">{{selectedProjectInfo.profitCenter | displayText}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="table-pih">{{projectType | displayText}} LOCATION</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-pi">{{selectedProjectInfo.locationGeo | displayText}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="table-pih">{{projectType | displayText}} BUDGET</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-pi"
+                                            style="border-bottom-left-radius:10px; border-bottom-right-radius: 10px; padding-bottom:10px;">
+                                            {{selectedProjectInfo.billingBudgeted | currency:'USD':'symbol-narrow':'1.0'}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-pih">CONSUMED BUDGET</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-pi"
+                                            style="border-bottom-left-radius:10px; border-bottom-right-radius: 10px; padding-bottom:10px;">
+                                            {{selectedProjectInfo.budgetConsumed | displayCurrency}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-pih">REMAINING BUDGET</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-pi"
+                                            style="border-bottom-left-radius:10px; border-bottom-right-radius: 10px; padding-bottom:10px;">
+                                            {{selectedProjectInfo.budgetRemaining | displayCurrency}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="text-align: center" *ngIf="showSideMenu">
+            <span>{{'Project Resource Workbench' | displayText}}<br/>{{'Burns @2020' | displayText}}</span>
+        </div>
+    </div>
+</div>

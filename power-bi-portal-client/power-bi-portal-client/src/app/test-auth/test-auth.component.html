@@ -1,0 +1,10 @@
+
+<div style="padding-top:200px; margin-left: 50px;">
+<form class="needs-validation" novalidate [formGroup]="form">
+<h1>This project is currently in beta.</h1>
+<div>For best experience please use Chrome.</div>
+<div>Please enter the access code to help test and provide feedback.</div>
+<div style="margin-top: 10px;;"><input type="text" formControlName="authCode" ><button class="btn" style="margin-left:5px;" (click)="auth()">GO</button></div>
+<div>{{resultText}}</div>
+</form>
+</div>

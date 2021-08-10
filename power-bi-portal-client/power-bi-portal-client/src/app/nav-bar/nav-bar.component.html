@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+  <span class="navbar-brand" style="max-width:288px; min-width: 288px;">
+    <span class="logo-container" style="margin-top:-10px; margin-bottom: -10px; margin-left:-15px; margin-right:10px;">
+      <img id="logo" alt="Logo" src="../../assets/images/burns-logo-text.png" style="width:100%; height:100%; margin-top: 6px;">
+    </span>
+  </span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div style="width:50px;">
+      &nbsp;
+    </div>
+    
+    <ul *ngIf="loggedIn" class="navbar-nav mr-auto" style="margin-left: inherit; max-height:100px;">
+      <li *ngIf="hasPermission('Entry')" style="align-content: center; max-height:100px;">
+        <a class="navbar-brand-item" (click)="navigateTo('/manage-resources/project')" style="max-height:100px;">
+          <span [ngClass]="checkSelectedLinkClass('/manage-resources/project')"  routerLinkActive="selected-item" style="margin-top:-10px; margin-bottom: -8px; max-height:100px;">
+            <img id="logo" alt="Logo" src="../../assets/images/menu-entry-project.svg" style="max-height:100px;">
+          </span>
+        </a>
+      </li>
+      <li *ngIf="hasPermission('Entry')"  style="align-content: center; max-height:100px;">
+        <a class="navbar-brand-item" (click)="navigateTo('/manage-resources/obe')" style="max-height:100px;">
+          <span [ngClass]="checkSelectedLinkClass('/manage-resources/obe')"  routerLinkActive="selected-item" style="margin-top:-10px; margin-bottom: -8px; max-height:100px;">
+            <img id="logo" alt="Logo" src="../../assets/images/menu-entry-obe.svg" style="max-height:100px;">
+          </span>
+        </a>
+      </li>
+      <li *ngIf="hasPermission('Entry')" style="align-content: center; max-height:100px;">
+        <a class="navbar-brand-item" (click)="navigateTo('inquiry/resource')" style="max-height:100px;">
+          <span [ngClass]="checkSelectedLinkClass('/inquiry/resource')" style="margin-top:-10px; margin-bottom: -8px; max-height:100px;">
+            <img id="logo" alt="Logo" src="../../assets/images/menu-resource-inquiry.png" style="max-height:100px; margin-top: 1px;">
+          </span>
+        </a>
+      </li>
+      <li *ngIf="hasPermission('Entry')"  style="align-content: center; max-height:100px;">
+        <a class="navbar-brand-item" (click)="navigateTo('/inquiry/project')" style="max-height:100px;">
+          <span [ngClass]="checkSelectedLinkClass('/inquiry/project')" style="margin-top:-10px; margin-bottom: -8px; max-height:100px;">
+            <img id="logo" alt="Logo" src="../../assets/images/menu-project-inquiry.png" style="max-height:100px; margin-top: 1px;">
+          </span>
+        </a>
+      </li>
+      <li *ngIf="hasPermission('Entry')" style="align-content: center; max-height:100px;">
+        <a class="navbar-brand-item" (click)="navigateTo('/inquiry/pm')" style="max-height:100px;">
+          <span [ngClass]="checkSelectedLinkClass('/inquiry/pm')" style="margin-top:-10px; margin-bottom: -8px; max-height:100px;">
+            <img id="logo" alt="Logo" src="../../assets/images/menu-pm-inquiry.png" style="max-height:100px; margin-top: 1px;">
+          </span>
+        </a>
+      </li>
+      <li *ngIf="hasPermission('Entry')" [routerLink]="'/reports'" style="align-content: center; max-height:100px;">
+        <a class="navbar-brand-item" [routerLink]="'/reports'" style="max-height:100px;">
+          <span routerLinkActive="selected-item" style="margin-top:-10px; margin-bottom: -8px; max-height:100px;">
+            <img id="logo" alt="Logo" src="../../assets/images/menu-reports.png" style="max-height:100px; margin-top: 0px;">
+          </span>
+        </a>
+      </li>
+      <li *ngIf="hasPermission('Admin')"  [routerLink]="'/admin/reportlist'" style="align-content: center; max-height:100px;">
+        <a class="navbar-brand-item" [routerLink]="'/admin/reportlist'" style="max-height:100px;">
+          <span routerLinkActive="selected-item" style="margin-top:-10px; margin-bottom: -8px; max-height:100px;">
+            <img id="logo" alt="Logo" src="../../assets/images/menu-admin.png" style="max-height:100px; margin-top: 0px;">
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <span (click)="logmeout()" class="menu-text">{{selectedFeature}}</span>
+        </li>
+    </ul>
+  </div>
+  <div *ngIf="!loggedIn" class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <span (click)="logmein()" class="menu-text">{{"Login" | displayText}}</span>
+        </li>
+    </ul>
+  </div>
+  <div *ngIf="loggedIn" class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <span (click)="logmeout()" class="menu-text">{{"Logout" | displayText}}</span>
+        </li>
+    </ul>
+  </div>
+</nav>

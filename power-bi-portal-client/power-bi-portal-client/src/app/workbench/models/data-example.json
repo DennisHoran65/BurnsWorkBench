@@ -1,0 +1,107 @@
+{
+    "info": {
+        "projectManager" : "Anthony LoCierco III",
+        "projectNumber": "PANYNJ",
+        "projectPhase": "EWR South Spron - Phase II - CPS",
+        "projectTask": "000-Default",
+        "startDate": "10/06/2019",
+        "endDate": "12/01/2019",
+        "length": "9 weeks", 
+        "profitCenter": "Aviation",
+        "location_geo": "Philadelphia"
+    },
+    "high_level_plan": {
+        "budget" : {
+            "billing_budgeted" : 125000,
+            "method": "percent"
+        },
+        "disciplines": [
+            {
+                "disciplineName": "Airfield",
+                "pctAmount": 44.00,
+                "dolAmount": 50000,
+                "resource_dol_allocated": 41400,
+                "num_resources": 1,
+                "dol_not_allocated": 8600,
+                "allocated_hours": 360
+            },
+            {
+                "disciplineName": "CM",
+                "pctAmount": 0,
+                "dolAmount": 0,
+                "resource_dol_allocated": 0,
+                "num_resources": 0,
+                "dol_not_allocated": 0,
+                "allocated_hours": 0
+            },
+            {
+                "disciplineName": "Designer-CAD/Revit",
+                "pctAmount": 0,
+                "dolAmount": 0,
+                "resource_dol_allocated": 0,
+                "num_resources": 0,
+                "dol_not_allocated": 0,
+                "allocated_hours": 0
+            }
+        ],
+        "unallocated_discipline": {
+            "disciplineName": "Unallocated",
+            "pctAmount": 5,
+            "dolAmount": 6250,
+            "resource_dol_allocated": 0,
+            "num_resources": 0,
+            "dol_not_allocated": 6250,
+            "allocated_hours": 0
+        }
+    },
+    "resourcing" : {
+        "resources" : [
+            {
+                "id": 1,
+                "name": "Bernhardt",
+                "profit_center": "Aviation",
+                "disciplineName" : "Airfield",
+                "assigned_PM" : "LoCierco III",
+                "location_geo" : "Philadelphia",
+                "rate_loaded" : 115,
+                "start_date" : "10/06/2019",
+                "hoursPerWeek": 40,
+                "numberOfWeeks" : 9,
+                "o": "",
+                "resource_dollars": 41400,
+                "resource_hours": 360,
+                "utilization": 150.00,
+                "schedule" : [
+                    {
+                        "weekId": 1,
+                        "weekEnding" : "10/06/2019",
+                        "hours" : 40,
+                        "resourceDollars": 4600.00,
+                        "utilization": 100.00
+                    },
+                    {
+                        "weekId": 2,
+                        "weekEnding" : "10/13/2019",
+                        "hours" : 40,
+                        "resourceDollars": 4600.00,
+                        "utilization": 100.00
+                    },
+                    {
+                        "weekId": 3,
+                        "weekEnding" : "10/20/2019",
+                        "hours" : 40,
+                        "resourceDollars": 4600.00,
+                        "utilization": 100.00
+                    },
+                    {
+                        "weekId": 4,
+                        "weekEnding" : "10/27/2019",
+                        "hours" : 40,
+                        "resourceDollars": 4600.00,
+                        "utilization": 100.00
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,165 @@
+<div class="container-fluid">
+    <div class="col-lg-12 order-lg-1" style="margin-top: 5px; margin-left:5px;">
+        <form class="needs-validation" novalidate [formGroup]="form">
+            <div class="row" style="margin-top: 10px;">
+                <div id="resourceTableDiv" style="width:1500px; overflow-x:auto;">
+                    
+                    
+                    <table class="table" > <!-- style="overflow: visible !important;  style="max-height: 250px; width:100%; max-width: 100%;"-->
+                        <thead>
+                            <tr>
+                                <th colspan="2" class="td60 leftTopRound">
+                                        <button *ngIf="scrollVisible" [ngClass]="{'btn btn-sm btn-secondary':true,
+                                                             'disabled': !scrollUpEnabled}" (mouseover)="scrollUp()" (mouseleave)="stopScrollTable()">
+                                                             <img src="../../../assets/images/scrollup.svg"
+                                    style="height: 20px; width: 20px;" class="clickImage" />
+                                                            </button></th>
+                                 <th class="td180">RESOURCE<br />NAME</th>
+                                <th class="td100">PROFIT<br />CENTER</th>
+                                <th class="td150">DISCIPLINE</th>
+                                <th class="td180">RESOURCE<br />PM</th>
+                                <th class="td100">LOCATION /<br />GEOGRAPHY</th>
+                                <th class="td100">RATE<br />(LOADED)</th>
+                                <th class="td100">START<br />WEEK</th>
+                                <th class="td90">HOURS<br /> PER<br />WEEK</th>
+                                <th class="td90"># WKS</th>
+                                <th class="td50">OVER</th>
+                                <th class="td120">TOTAL<br />AMT($)</th>
+                                <th class="td100">RESOURCE<br />(HOURS)</th>
+                                <th class="td80 rightTopRound">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resourceTbody" style="max-width:1500px">
+                            <ng-container *ngFor="let resource of projectResources; let last = last">
+                                <tr *ngIf="resource.hasOverride()">
+                                    <td (click)="setActiveResource(resource)" style="min-height: 31px;" class="td30">
+                                        <img *ngIf="selectedResourceId === resource.ProjectEmployeeId" src="../../../assets/images/radio_button_checked-24px.svg"
+                                            style="height: 20px; width: 20px;" class="clickImage" />
+                                            
+                                            <img *ngIf="selectedResourceId !== resource.ProjectEmployeeId" src="../../../assets/images/radio_button_unchecked-24px.svg"
+                                            style="height: 20px; width: 20px;" class="clickImage" />
+                                    </td>
+                                    <td (click)="editResource(resource)" style="min-height: 31px;" class="td30">
+                                        <img src="../../../assets/images/pencil.svg"
+                                            style="height: 20px; width: 20px;" class="clickImage">
+                                            
+                                        
+                                    </td>
+                                    <td class="td180">
+                                        {{resource.Name | displayText}}
+                                    </td>
+                                    <td class="td100">{{resource.ProfitCenter | displayText}}</td>
+                                    <td class="table-error td150" *ngIf="resource.DisciplineId === 0">
+                                        {{'Select a discipline' | displayText}}
+                                    </td>
+                                    <td class="table-editable td150" *ngIf="resource.DisciplineId !== 0">
+                                        {{disciplineDisplay(resource.Discipline) | displayText}}
+                                    </td>
+                                    <td class="td180">{{resource.AssignedPM | displayText}}</td>
+                                    <td class="td100">{{resource.LocationGeography | displayText}}</td>
+                                    <td class="td100" *ngIf="displayRate">{{resource.LoadedRate | displayCurrency}}</td>
+                                    <td class="td100" *ngIf="!displayRate">{{null | displayCurrency}}</td>
+                                    <td class="table-editable td100"   [ngClass]="{'table-error': startDateInvalid(resource)}">
+                                        {{resource.getDisplayStartDate().month}}/{{resource.getDisplayStartDate().day}}/{{resource.getDisplayStartDate().year}}
+                                    </td>
+                                    <td colspan="2" class="table-editable td180" *ngIf="selectedResourceId === resource.ProjectEmployeeId">                                  
+                                        <button class="btn btn-link"
+                                            (click)="resetCustomSchedule(resource)">Clear Custom Schedule</button>
+                                        </td>
+                                    <td *ngIf="!(selectedResourceId === resource.ProjectEmployeeId)" class="table-editable td90"> - </td>
+                                    <td *ngIf="!(selectedResourceId === resource.ProjectEmployeeId)" class="table-editable td90" > - </td>
+                                    <td class="table-editable td50">
+                                        <img *ngIf="resource.hasOverride()"
+                                            src="../../../assets/images/check_box-24px.svg"
+                                            style="height: 20px; width: 20px;">
+                                    </td>
+                                    <td class="td120" *ngIf="displayRate">{{resource.getResourceCost() | displayCurrency}}</td>
+                                    <td class="td120" *ngIf="!displayRate">{{null | displayCurrency}}</td>
+                                    <td class="td100">{{resource.getTotalHours() | number}}</td>
+                                    
+                                    <td class="td80">
+                                        <img src="../../../assets/images/delete-24px.svg"
+                                        style="height: 24px; width: 24px; cursor:pointer;"
+                                        *ngIf="selectedResourceId === resource.ProjectEmployeeId"
+                                        (click)="deleteResource(resource)">
+                                     </td>
+                                </tr>
+                                <tr *ngIf="!resource.hasOverride()">
+                                    <td (click)="setActiveResource(resource)" style="min-height: 31px;" class="td30">
+                                        <img *ngIf="selectedResourceId === resource.ProjectEmployeeId" src="../../../assets/images/radio_button_checked-24px.svg"
+                                            style="height: 20px; width: 20px;" class="clickImage" />
+                                            
+                                            <img *ngIf="selectedResourceId !== resource.ProjectEmployeeId" src="../../../assets/images/radio_button_unchecked-24px.svg"
+                                            style="height: 20px; width: 20px;" class="clickImage" />
+                                    </td>
+                                    <td (click)="editResource(resource)" style="min-height: 31px;" class="td30">
+                                        <img src="../../../assets/images/pencil.svg" class="clickImage"
+                                            style="height: 20px; width: 20px;">
+                                            
+                                        
+                                    </td>
+                                    <td class="td180">
+                                        {{resource.Name | displayText}}
+                                    </td>
+                                    <td class="td100">{{resource.ProfitCenter | displayText}}</td>
+                                    <td class="table-error td150" *ngIf="resource.DisciplineId === 0">
+                                        {{'Select a discipline' | displayText}}
+                                    </td>
+                                    <td class="table-editable td150" *ngIf="resource.DisciplineId !== 0">
+                                        {{disciplineDisplay(resource.Discipline) | displayText}}
+                                    </td>
+                                    <td class="td180">{{resource.AssignedPM | displayText}}</td>
+                                    <td class="td100">{{resource.LocationGeography | displayText}}</td>
+                                    <td class="td100" *ngIf="displayRate">{{resource.LoadedRate | displayCurrency}}</td>
+                                    <td class="td100" *ngIf="!displayRate">{{null | displayCurrency}}</td>
+                                    <td class="table-editable td100"   [ngClass]="{'table-error': startDateInvalid(resource)}">
+                                        {{resource.getDisplayStartDate().month}}/{{resource.getDisplayStartDate().day}}/{{resource.getDisplayStartDate().year}}
+                                    </td>
+                                    <td  class="table-editable td90">{{resource.HoursPerWeek | number}}</td>
+                                    <td  class="table-editable td90">{{resource.NumberOfWeeks | number}}</td>
+                                    <td class="table-editable td50">
+                                        <img *ngIf="resource.hasOverride()"
+                                            src="../../../assets/images/check_box-24px.svg"
+                                            style="height: 20px; width: 20px;">
+                                    </td>
+                                    <td class="td120" *ngIf="displayRate">{{resource.getResourceCost() | displayCurrency}}</td>
+                                    <td class="td120" *ngIf="!displayRate">{{null | displayCurrency}}</td>
+                                    <td class="td100">{{resource.getTotalHours() | number}}</td>
+                                    <td class="td80">
+                                        <img src="../../../assets/images/delete-24px.svg"
+                                        style="height: 24px; width: 24px; cursor:pointer;"
+                                        *ngIf="selectedResourceId === resource.ProjectEmployeeId"
+                                        (click)="deleteResource(resource)">
+                                     </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                        <tfoot>
+                            <tr class="table" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+                                <td class="td60 leftBottomRound" colspan="2" style="vertical-align:middle; padding: 0.3rem; text-align: center;">
+                                    <button *ngIf="scrollVisible" [ngClass]="{'btn btn-sm btn-secondary':true,
+                                    'disabled': !scrollDownEnabled}" (mouseover)="scrollDown()" (mouseleave)="stopScrollTable()">
+                                    <img src="../../../assets/images/scrolldown.svg"
+                                    style="height: 20px; width: 20px;" class="clickImage" />
+                                </button>
+                                   </td>
+                                <td class="td230" colspan="2">
+                                    <input id="typeahead-prevent-manual-entry" type="text" class="input-background form-control"
+                                        style="height:30px; vertical-align:middle;"
+                                        formControlName="newResourceName" [ngbTypeahead]="search"
+                                        [inputFormatter]="formatter" [resultFormatter]="formatter" [editable]='false'
+                                        typeahead-show-on-focus
+                                        placeholder="Add a new resource"
+                                        (blur)='lostFocus()' 
+                                        (selectItem)="selectItem($event)" />
+
+                                </td>
+                                <td class= "rightBottomRound" colspan="12" style="width: 1210px" >&nbsp;</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+<form class="needs-validation" novalidate [formGroup]="form">
+<div class="modal-header" style="border:none;">
+      <h4>Resource Details</h4>
+</div>
+<div class="modal-body">
+  <div class="row form-group">
+    <div class="col-md-4">
+    <label for="name">Name:</label>
+    </div><div class="col-md-8">
+    <span id="name">{{resource.Name | displayText}}</span>
+    </div>
+</div>
+    <div class="row form-group">
+      <div class="col-md-4">
+      <label for="profitCenter">Profit Center:</label>
+      </div><div class="col-md-8">
+      <span id="profitCenter">{{resource.ProfitCenter | displayText}}</span>
+      </div>
+    </div>
+
+ <div class="row form-group">
+      <div class="col-md-4">
+      <label for="discipline">Discipline:</label>
+      </div><div class="col-md-7">
+      <select *ngIf="canEditDiscipline() && disciplineEnabled" id="discipline" 
+         [ngClass]="{'selectBox': true,
+                    'table-error': !validDiscipline()}" formControlName="resourceDiscipline"
+         (change)="updateResourceDiscipline($event)"
+        >
+        <option *ngFor="let discipline of availableDisciplines" 
+        [value]="discipline.disciplineId">
+        {{discipline.disciplineName | displayText}}</option>
+      </select>   
+      <span *ngIf="!canEditDiscipline() || !disciplineEnabled" id="discipline">{{resource.Discipline | displayText}}</span>
+     
+      </div>
+</div>
+    <div class="row form-group">
+      <div class="col-md-4">
+        <label for="locationGeo">Location/Geography:</label>
+      </div><div class="col-md-8">
+        <span id="locationGeo">{{resource.LocationGeography | displayText}}</span>
+        </div>
+</div>
+    <div class="row form-group">
+      <div class="col-md-4">
+        <label for="startDate">Start Week:</label>
+      </div>
+         <div *ngIf="canEditStartDate()" class="col-md-5">
+           <div class="input-group">
+            <input [ngClass]="{'form-control dt': true,
+                               'input-background': validStartDate(),
+                               'table-error': !validStartDate()}" placeholder="mm/dd/yy" name="dp" 
+          (click)="d.toggle()"
+          (keydown)="d.toggle()"
+          formControlName="dateExample" ngbDatepicker #d="ngbDatepicker"
+          style="text-align: right;"
+          [ngModel]="inputStartDate"
+          (ngModelChange)="updateStartDate()"
+          [minDate]="minDate">
+      
+          <div class="input-group-append" style="height: 30px; width: 20px;">
+          <button class="btn btn-outline-secondary calendar" (click)= "d.toggle();" type="button"  style="height: 30px; width: 20px;">
+              <img src="../../../assets/images/calendar_today-24px.svg" style="height: 20px; width: 20px; margin-left: -10px; margin-bottom: 2px; margin-top: -6px;">
+          </button>
+          </div>
+      </div>
+     
+  </div>
+  <div *ngIf="!canEditStartDate()" 
+      [ngClass]="{'table-error': startDateInvalid(),
+                   'col-md-8' : true}">
+      {{resource.getDisplayStartDate().month}}/{{resource.getDisplayStartDate().day}}/{{resource.getDisplayStartDate().year}}
+  </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-4"> <label for="hoursPerWeek">Hours per week:</label></div>
+    <div class="col-md-8">
+        <input id="hoursPerWeek" *ngIf="!resource.hasOverride()" 
+               [ngClass]="{'form-control form-control-sm':true,
+                            'input-background': validHoursPerWeek(),
+                            'table-error': !validHoursPerWeek() }" type="text"
+        OnlyNumber="true" 
+        style="height:30px; width:50px; display: inline-block;  text-align: right;"
+            formControlName="resourceHoursPerWeek" />
+       <span id="hoursPerWeek" *ngIf="resource.hasOverride()">(custom)</span>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-4"> <label for="numberOfWeeks"># weeks:</label></div>
+    <div class="col-md-7">
+      <input id="numberOfWeeks" *ngIf="!resource.hasOverride()" 
+      [ngClass]="{'form-control form-control-sm':true,
+      'input-background': validNumberOfWeeks(),
+      'table-error': !validNumberOfWeeks() }" type="text"
+      OnlyNumber="true" 
+      style="height:30px; width:50px; display: inline-block; text-align: right;"
+          formControlName="resourceNumberOfWeeks"  />
+       <span id="numberOfWeeks" *ngIf="resource.hasOverride()">(custom)</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-footer">
+  <button type="button" [ngClass]="{'btn btn-outline-dark': true,
+                                     'disabled': !formValid()}" (click)="closeModalWithResource()">Ok</button>
+  <button type="button" class="btn btn-outline-dark" (click)="closeModalWithoutResource();">Cancel</button>
+</div>
+</form>

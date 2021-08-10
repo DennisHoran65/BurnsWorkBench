@@ -1,0 +1,40 @@
+
+<div  (window:resize)="onWindowResize($event)" style="display:flex; flex-direction: row; height:1000px;">
+    <div class="sideNav" [ngStyle]="getSideNavStyle()" style="width:294px;margin-top:96px; margin-left:0px; overflow-y: auto; overflow-x:hidden;" >
+    <div *ngFor="let category of reportCategories" style="width:100%;margin-top:10px;margin-left:0px; ">
+        <div class="row" style="margin-left:5px">
+            <div class="rpt-list-category" style="margin:8px;padding-top:10px; padding-bottom: 10px">{{category.categoryName | displayText}}
+            </div>
+        </div>
+        <div class="row" *ngFor="let report of category.reports"  style="display:flex;flex-direction: row;" >
+            <div style="margin-left:30px; margin-top:-8px;"><img src="../../assets/images/bracket.png" height="20px" /></div>
+            <div style="padding-top:10px; padding-bottom: 10px" [ngClass]="{'col-md-12': false,
+                            'rpt-list' : !isSelected(report),
+                            'rpt-list-selected': isSelected(report) }" (click)="selectReport(report, $event)"> {{report.reportName | displayText}} </div>
+        </div>
+    </div>
+    <div style="visibility: hidden;">
+        <div style="font-size: x-small;">
+            <div>Temporary for testing</div>
+            <div>Select Current user type</div>
+            <a><span>PM </span> </a><br/>
+            <a><span>IT</span></a><br/>
+            <a><span>CEO</span></a>
+        </div>
+    </div>
+    </div> <!--sidenav-->
+<div *ngIf="showDescription()" style="width: 40%; margin-top:116px; margin-left:20px;display:flex; flex-direction: row;"  [ngStyle]="{ 'height': (screenHeight-106)+ 'px' }"  #reportDescription>
+<div [ngStyle]="{ 'margin-top': (reportMarginTop)+ 'px' }">
+ <img src="../../assets/images/leftpointer.svg" height="40px:" />
+</div>
+<div>
+        <div class="reportDescription" [ngStyle]="{ 'margin-top': (reportMarginTop-20)+ 'px' }">
+    {{selectedReport.description}}
+             <div style="text-align: center;margin-top: 10px">
+                <a class="button btn reportRunButton center" (click)="runReport()"><span class="reportRunButtonText">RUN</span></a>
+             </div>
+
+            </div>
+        </div> 
+    </div>
+</div> 
